@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     return res.status(200).end()
   }
 
-  const REPLICATE_API_TOKEN = process.env.REPLICATE_API_TOKEN.trim()
+  const REPLICATE_API_TOKEN = process.env.REPLICATE_API_TOKEN?.trim()
   const REPLICATE_API_URL = 'https://api.replicate.com/v1'
 
   if (!REPLICATE_API_TOKEN || REPLICATE_API_TOKEN === '') {
