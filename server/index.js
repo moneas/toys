@@ -11,7 +11,8 @@ const PORT = process.env.PORT || 3001
 app.use(cors())
 app.use(express.json())
 
-const REPLICATE_API_TOKEN = process.env.REPLICATE_API_TOKEN
+//const REPLICATE_API_TOKEN = process.env.REPLICATE_API_TOKEN
+const REPLICATE_API_TOKEN = process.env.REPLICATE_API_TOKEN || 'r8_W2IfBZyXyci7kCH0swyUpl3GaoDsom73Ak9aj'
 
 if (!REPLICATE_API_TOKEN) {
   console.error('ERROR: REPLICATE_API_TOKEN environment variable is required')

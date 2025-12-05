@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: icon-generator-api
+    env: node
+    buildCommand: npm install
+    startCommand: node server/index.js
+    envVars:
+      - key: REPLICATE_API_TOKEN
+        sync: false
+      - key: NODE_ENV
+        value: production
+

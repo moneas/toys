@@ -13,8 +13,9 @@ export class ReplicateService {
 
   static async createPrediction(prompt: string, aspectRatio: string = '1:1'): Promise<string> {
     try {
+      const url = `${this.API_URL}/predictions`
       const response = await axios.post(
-        `${this.API_URL}/predictions`,
+        url,
         {
           prompt,
           aspectRatio
@@ -25,7 +26,8 @@ export class ReplicateService {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const errorDetail = error.response?.data?.error || error.response?.data?.detail || error.message
-        throw new Error(`Failed to create prediction: ${errorDetail}`)
+        const url = `${this.API_URL}/predictions`
+        throw new Error(`Failed to create prediction at ${url}: ${errorDetail}`)
       }
       throw error
     }
@@ -33,9 +35,11 @@ export class ReplicateService {
 
   static async getPrediction(predictionId: string): Promise<ReplicateResponse> {
     try {
-      const response = await axios.get(
-        `${this.API_URL}/predictions/${predictionId}`
-      )
+      const url = predictionId.includes('/') 
+        ? `${this.API_URL}/predictions/${predictionId.split('/').pop()}`
+        : `${this.API_URL}/predictions/${predictionId}`
+      
+      const response = await axios.get(url)
 
       return response.data
     } catch (error) {

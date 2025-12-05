@@ -3,6 +3,7 @@ export interface StylePreset {
   name: string
   description: string
   promptSuffix: string
+  image: string
 }
 
 export interface IconGenerationRequest {

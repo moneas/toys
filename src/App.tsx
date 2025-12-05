@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import IconGenerator from './components/IconGenerator'
 import './App.css'
 

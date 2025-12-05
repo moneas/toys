@@ -105,18 +105,32 @@ function IconGenerator() {
 
         <div className="form-group">
           <label htmlFor="style">Preset Style</label>
-          <select
-            id="style"
-            value={selectedStyle}
-            onChange={(e) => setSelectedStyle(Number(e.target.value))}
-            disabled={loading}
-          >
-            {STYLE_PRESETS.map(style => (
-              <option key={style.id} value={style.id}>
-                {style.name} - {style.description}
-              </option>
-            ))}
-          </select>
+          <div className="style-select-wrapper">
+            <select
+              id="style"
+              value={selectedStyle}
+              onChange={(e) => setSelectedStyle(Number(e.target.value))}
+              disabled={loading}
+              className="style-select"
+            >
+              {STYLE_PRESETS.map(style => (
+                <option key={style.id} value={style.id}>
+                  {style.name}
+                </option>
+              ))}
+            </select>
+            <div className="style-preview">
+              <img 
+                src={STYLE_PRESETS.find(s => s.id === selectedStyle)?.image} 
+                alt={STYLE_PRESETS.find(s => s.id === selectedStyle)?.name}
+                className="style-preview-image"
+              />
+              <div className="style-preview-info">
+                <strong>{STYLE_PRESETS.find(s => s.id === selectedStyle)?.name}</strong>
+                <span>{STYLE_PRESETS.find(s => s.id === selectedStyle)?.description}</span>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="form-group">
@@ -135,12 +149,20 @@ function IconGenerator() {
             {colors.map((color, index) => (
               <div key={index} className="color-input-group">
                 <input
+                  type="color"
+                  value={color || '#000000'}
+                  onChange={(e) => handleColorChange(index, e.target.value.toUpperCase())}
+                  disabled={loading}
+                  className="color-picker"
+                />
+                <input
                   type="text"
                   value={color}
-                  onChange={(e) => handleColorChange(index, e.target.value)}
+                  onChange={(e) => handleColorChange(index, e.target.value.toUpperCase())}
                   placeholder="#FF5733"
                   pattern="^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
                   disabled={loading}
+                  className="color-hex-input"
                 />
                 {colors.length > 1 && (
                   <button
